@@ -21,7 +21,6 @@
           "error",
           {
             "type": "element",
-            "prefix": "turtle-quotes",
             "style": "kebab-case"
           }
         ]

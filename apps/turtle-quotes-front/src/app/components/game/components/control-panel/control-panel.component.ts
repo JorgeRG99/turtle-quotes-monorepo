@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GameService } from '../../../../services/game/game.service';
 
@@ -10,7 +10,7 @@ import { GameService } from '../../../../services/game/game.service';
   templateUrl: './control-panel.component.html',
   styleUrl: './control-panel.component.scss'
 })
-export class ControlPanelComponent {
+export class ControlPanelComponent implements OnInit {
   timer$!: Observable<number>
   gameService = inject(GameService);
   totalWords!: Observable<number>;

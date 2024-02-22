@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { GameService } from '../../services/game/game.service';
 import { StatsObject } from '../../models';
 import { Subscription} from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ReloadComponent } from './components/reload/reload.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stats',
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss',
 })
-export class StatsComponent {
+export class StatsComponent implements OnInit, OnDestroy {
   gameService = inject(GameService);
   statsSuscription!: Subscription;
   stats: StatsObject = {
@@ -50,7 +49,7 @@ export class StatsComponent {
   ngOnDestroy() {
     if (this.statsSuscription) {
       this.statsSuscription.unsubscribe()
-    };
+    }
   }
 
   playAgain() {

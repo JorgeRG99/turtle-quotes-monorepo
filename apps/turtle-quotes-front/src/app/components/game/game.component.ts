@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TypeQuoteComponent } from './components/type-quote/type-quote.component';
 import { StartPanelComponent } from './components/start-panel/start-panel.component';
 import { GameService } from '../../services/game/game.service';
@@ -13,7 +13,7 @@ import { ControlPanelComponent } from './components/control-panel/control-panel.
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
-export class GameComponent {
+export class GameComponent implements OnInit {
   isGameStarted$!: Observable<boolean>
   gameService = inject(GameService);
 

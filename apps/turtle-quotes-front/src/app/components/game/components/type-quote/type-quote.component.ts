@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GameService } from '../../../../services/game/game.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './type-quote.component.html',
   styleUrl: './type-quote.component.scss',
 })
-export class TypeQuoteComponent {
+export class TypeQuoteComponent implements OnInit {
   gameService = inject(GameService);
   initialQuote$!: Observable<string>;
   rightQuote$!: Observable<string>;
