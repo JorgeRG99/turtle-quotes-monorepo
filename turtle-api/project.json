@@ -1,0 +1,56 @@
+{
+  "name": "turtle-api",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "turtle-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/turtle-api",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "turtle-api/src/main.ts",
+        "tsConfig": "turtle-api/tsconfig.app.json",
+        "assets": ["turtle-api/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "turtle-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "turtle-api:build:development"
+        },
+        "production": {
+          "buildTarget": "turtle-api:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
