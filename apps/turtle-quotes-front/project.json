@@ -1,0 +1,74 @@
+{
+  "name": "turtle-quotes-front",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "turtle-quotes",
+  "sourceRoot": "apps/turtle-quotes-front/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/turtle-quotes-front",
+        "index": "apps/turtle-quotes-front/src/index.html",
+        "browser": "apps/turtle-quotes-front/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/turtle-quotes-front/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/turtle-quotes-front/src/favicon.ico",
+          "apps/turtle-quotes-front/src/assets"
+        ],
+        "styles": ["apps/turtle-quotes-front/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/turtle-quotes-front/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/turtle-quotes-front/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "turtle-quotes-front:build:production"
+        },
+        "development": {
+          "buildTarget": "turtle-quotes-front:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "turtle-quotes-front:build"
+      }
+    }
+  }
+}
