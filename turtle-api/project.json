@@ -36,6 +36,26 @@
         }
       }
     },
+    "clean-db": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx ts-node ./turtle-api/src/scripts/clean-db.ts"
+          }
+        ]
+      }
+    },
+    "seed-db": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx ts-node ./turtle-api/src/scripts/seed-db.ts"
+          }
+        ]
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
