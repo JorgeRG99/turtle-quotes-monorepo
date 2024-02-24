@@ -1,6 +1,7 @@
 import mysql from 'mysql';
 
-export const connection = mysql.createConnection({
+export const connection = mysql.createPool({
+  connectionLimit : 10, 
   host: 'localhost',
   port: 8889,
   user: 'root',

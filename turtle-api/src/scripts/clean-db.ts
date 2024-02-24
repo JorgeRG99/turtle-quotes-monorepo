@@ -1,18 +1,30 @@
 import { connection } from '../services/db-connection';
+async function cleanDatabase() {
+  try {
+    connection.query('SHOW TABLES', (error, tables) => {
+      if (error) throw error;  
+      
+      let completedOperations = 0;
 
-connection.connect();
+      tables.forEach((table, index, array) => {
+        connection.query(
+          `DROP TABLE IF EXISTS ${table['Tables_in_turtle-quotes']}`,
+          (dropError) => {
+            if (dropError) throw dropError;
 
-connection.query('SHOW TABLES', (error, tables) => {
-  if (error) throw error;
+            completedOperations++;
+            if (completedOperations === array.length) connection.end();
+          }
+        );
+      });
 
-  tables.forEach((table) => {
-    connection.query(
-      `DROP TABLE IF EXISTS ${table['Tables_in_turtle-quotes']}`,
-      (dropError) => {
-        if (dropError) throw dropError;
-      }
-    );
-  });
+      if (tables.length === 0) connection.end();
 
-  connection.end();
-});
+    });
+  } catch (error) {
+    console.log(error);
+    connection.end();
+  }
+}
+
+cleanDatabase()
