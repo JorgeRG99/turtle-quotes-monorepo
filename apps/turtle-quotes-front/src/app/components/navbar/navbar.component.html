@@ -1,4 +1,17 @@
 <nav>
-    <app-page-logo/>
-    <h1>Turtle Quotes</h1>
+    <div class="logo">
+        <a routerLink="/">
+            <app-page-logo />
+        </a>
+        <h1>Turtle Quotes</h1>
+    </div>
+
+    <ul class="nav-links">
+        <li>
+            <button class="active" routerLink="/login">Login</button>
+        </li>
+        <li>
+            <a class="active" routerLink="/register">Register</a>
+        </li>
+    </ul>
 </nav>

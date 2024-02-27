@@ -1,16 +1,56 @@
 nav {
     padding: 1em 2em;
     display: flex;
-    gap: 1em;
     align-items: center;
+    justify-content: space-between;
 }
 
-nav:nth-child(1) {
-    color: var(--tertiary-color);
-    font-size: 1.2em;
-    font-weight: 700;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+    & h1 {
+        color: var(--tertiary-color);
+        font-size: 1.2em;
+        font-weight: 700;
+    }
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+    & a {
+        padding: .7em 1em;
+        text-decoration: none;
+        color: var(--tertiary-color);
+    }
+
+    & button {
+        font-size: 1em;
+        padding: .7em 1em;
+        text-decoration: none;
+        color: var(--tertiary-color);
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    & li {
+        list-style: none;
+    }
 }
 
 h1 {
     font-size: 1em;
+}
+
+.active {
+    &:hover {
+        transition: 200ms ease-in-out;
+        background-color: var(--secondary-color-light) !important;
+        border-radius: 1.8em;
+    }
 }
