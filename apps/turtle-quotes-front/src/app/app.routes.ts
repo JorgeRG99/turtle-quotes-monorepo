@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { StatsComponent } from './components/stats/stats.component';
 import { GameComponent } from './components/game/game.component';
 import { APP_ROUTES } from '../config';
-import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
   {
@@ -13,10 +12,6 @@ export const routes: Routes = [
   {
     path: APP_ROUTES.STATS,
     component: StatsComponent,
-  },
-  {
-    path: APP_ROUTES.REGISTER,
-    component: RegisterComponent
   },
   {
     path: '**',
