@@ -22,16 +22,16 @@
             </button>
         </header>
         <main>
-            <form>
+            <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
                 <ng-container *ngIf="($selectedForm | async) === 'register'">
                     <label for="username">Username</label>
-                    <input type="text" name="username" placeholder="Username" autocomplete="username" />
+                    <input type="text" name="username" placeholder="Username" autocomplete="username" formControlName="name" />
                 </ng-container>
 
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Email" autocomplete="email" />
+                <input type="email" name="email" placeholder="Email" autocomplete="email" formControlName="email" />
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="Password" />
+                <input type="password" name="password" placeholder="Password" formControlName="password" />
                 <footer>
                     <ng-container *ngIf="($selectedForm | async) === 'register' else loginSubmitButtonTemplate">
                         <button class="submit-button">Register</button>
