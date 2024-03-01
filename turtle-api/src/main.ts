@@ -12,13 +12,12 @@ app.use(json());
 
 app.use(
   cors({
-    origin: 'http://127.0.0.1:64785',
+    origin: 'http://localhost:4200',
   })
 );
 
 app.disable('x-powered-by');
 
-app.use('/api', turtleRouter);
 app.use('/api', turtleRouter);
 
 app.use(errorHandler);
