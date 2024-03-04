@@ -30,11 +30,11 @@ export class TurtleAuthController {
         return;
       }
 
-      const newUser = await AuthModel.register({ ...req.body });
+      const data = await AuthModel.register({ ...req.body });
 
       res.status(200).json({
         message: 'User created successfully',
-        data: newUser,
+        data: data,
       });
     } catch (error) {
       next(error);

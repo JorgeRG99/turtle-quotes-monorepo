@@ -26,9 +26,9 @@
                 <ng-container *ngIf="($selectedForm | async) === 'register'">
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="Username" autocomplete="username"
-                        formControlName="name" />
-                    <p *ngIf="fieldErrorMessage(authForm.get('name'))" class="validation-error">
-                        {{ fieldErrorMessage(authForm.get('name')) }}
+                        formControlName="username" />
+                    <p *ngIf="fieldErrorMessage(authForm.get('username'))" class="validation-error">
+                        {{ fieldErrorMessage(authForm.get('username')) }}
                     </p>
                 </ng-container>
 

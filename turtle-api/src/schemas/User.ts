@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { UserInterface } from '../interfaces/User';
 
 const userSchema = z.object({
-  name: z
+  username: z
     .string()
     .min(3, { message: 'Name is too short, must be at least 3 character' })
     .max(100, { message: 'Name is too long, must be at most 100 characters' }),

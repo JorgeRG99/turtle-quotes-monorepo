@@ -45,7 +45,7 @@ export class AuthenticationDialogComponent implements OnInit {
 
   initForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.minLength(3), Validators.maxLength(100)]],
+      username: ['', [Validators.minLength(3), Validators.maxLength(100)]],
       email: [
         '',
         [
@@ -74,7 +74,7 @@ export class AuthenticationDialogComponent implements OnInit {
 
     const formValue = this.authForm.value;
     const credentials = {
-      name: formValue.name ?? '',
+      username: formValue.username ?? '',
       email: formValue.email ?? '',
       password: formValue.password ?? '',
     };

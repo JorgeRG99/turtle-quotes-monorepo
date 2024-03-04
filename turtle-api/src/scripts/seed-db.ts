@@ -10,7 +10,7 @@ async function initializeDatabase() {
   try {
     await query(`CREATE TABLE users (
         id VARCHAR(36) PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
+        username VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
         password_hash VARCHAR(255) NOT NULL,
         token VARCHAR(255) NULL,
@@ -51,7 +51,7 @@ async function initializeDatabase() {
     const passwordHash = await bcrypt.hash("12345678", SALT_ROUNDS);
 
     await query(
-      `INSERT INTO users (id, name, email, password_hash) VALUES (UUID(), "jorgitoram", "jorge@demo.com", '${passwordHash}')`
+      `INSERT INTO users (id, username, email, password_hash) VALUES (UUID(), "jorgitoram", "jorge@demo.com", '${passwordHash}')`
     );
   } catch (error) {
     console.error('Error al inicializar la base de datos:', error);
