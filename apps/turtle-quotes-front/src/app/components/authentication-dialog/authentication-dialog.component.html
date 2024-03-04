@@ -25,20 +25,41 @@
             <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
                 <ng-container *ngIf="($selectedForm | async) === 'register'">
                     <label for="username">Username</label>
-                    <input type="text" name="username" placeholder="Username" autocomplete="username" formControlName="name" />
+                    <input type="text" name="username" placeholder="Username" autocomplete="username"
+                        formControlName="name" />
+                    <p *ngIf="fieldErrorMessage(authForm.get('name'))" class="validation-error">
+                        {{ fieldErrorMessage(authForm.get('name')) }}
+                    </p>
                 </ng-container>
 
                 <label for="email">Email</label>
                 <input type="email" name="email" placeholder="Email" autocomplete="email" formControlName="email" />
+                <p *ngIf="fieldErrorMessage(authForm.get('email'))" class="validation-error">
+                    {{ fieldErrorMessage(authForm.get('email')) }}
+                </p>
+
                 <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Password" formControlName="password" />
+                <p *ngIf="fieldErrorMessage(authForm.get('password'))" class="validation-error">
+                    {{ fieldErrorMessage(authForm.get('password')) }}
+                </p>
+
+
                 <footer>
-                    <ng-container *ngIf="($selectedForm | async) === 'register' else loginSubmitButtonTemplate">
-                        <button class="submit-button">Register</button>
+                    <ng-container *ngIf="(isLoadingResponse$ | async) === true else submitButtons">
+                        <span class="loader"></span>
                     </ng-container>
 
-                    <ng-template #loginSubmitButtonTemplate>
-                        <button class="submit-button">Login</button>
+                    <ng-template #submitButtons>
+                        <ng-container *ngIf="($selectedForm | async) === 'register' else loginSubmitButtonTemplate">
+                            <button *ngIf="(isLoadingResponse$ | async) === false" class="submit-button"
+                                [disabled]="!authForm.valid">Register</button>
+                            <span *ngIf="(isLoadingResponse$ | async)" class="loader"></span>
+                        </ng-container>
+
+                        <ng-template #loginSubmitButtonTemplate>
+                            <button class="submit-button" [disabled]="!authForm.valid">Login</button>
+                        </ng-template>
                     </ng-template>
                 </footer>
             </form>

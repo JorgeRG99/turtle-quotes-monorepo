@@ -6,7 +6,7 @@
         <h1>Turtle Quotes</h1>
     </div>
 
-    <ul class="nav-links">
+    <ul *ngIf="(isAuthenticated$ | async) === false else userProfile" class="nav-links">
         <li>
             <button class="active" (click)="openAuthDialog('login')">Login</button>
         </li>
@@ -14,4 +14,8 @@
             <button class="active" (click)="openAuthDialog('register')">Register</button>
         </li>
     </ul>
+
+    <ng-template #userProfile>
+        <button (click)="logout()">User</button>
+    </ng-template>
 </nav>

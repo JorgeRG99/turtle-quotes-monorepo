@@ -7,6 +7,10 @@ export class SelectedFormManager {
     return this.$selected.asObservable();
   }
 
+  getSelectedFormValue() {
+    return this.$selected.getValue();
+  }
+
   setSelectedForm(value: string) {
     this.$selected.next(value);
   }
