@@ -14,6 +14,10 @@ export const routes: Routes = [
     component: StatsComponent,
   },
   {
+    path: APP_ROUTES.PROFILE,
+    component: StatsComponent,
+  },
+  {
     path: '**',
     redirectTo: APP_ROUTES.HOME,
   },

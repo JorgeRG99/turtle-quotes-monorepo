@@ -3,6 +3,7 @@ import { environment } from "./environments/environments";
 export const APP_ROUTES = {
   HOME: '',
   STATS: 'stats',
+  PROFILE: 'profile'
 };
 
 // ---------------- BACKEND ENDPOINTS ----------------

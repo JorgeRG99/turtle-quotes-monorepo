@@ -2,15 +2,26 @@ import { AuthModel } from '../models/AuthModel';
 import { validateUser } from '../schemas/User';
 
 export class TurtleAuthController {
+  static async sessionCheck(req, res, next) {
+    try {
+      const data = await AuthModel.sessionCheck({ token: req.headers.authorization.split(' ')[1]});
+
+      res.status(200).json({
+        message: 'User authenticated',
+        data: data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async login(req, res, next) {
     try {
-      const sessionToken = await AuthModel.login({ ...req.body });
+      const data = await AuthModel.login({ ...req.body });
 
       res.status(200).json({
         message: 'User logged successfully',
-        data: {
-          token: sessionToken,
-        },
+        data: data,
       });
     } catch (error) {
       next(error);

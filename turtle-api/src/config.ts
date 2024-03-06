@@ -3,6 +3,7 @@ export const SALT_ROUNDS = 10;
 export const LOGIN_ROUTE = '/login';
 export const REGISTER_ROUTE = '/register';
 export const LOGOUT_ROUTE = '/logout';
+export const SESSION_CHECK_ROUTE = '/session';
 
 export enum ErrorCode {
     NotFound = 'NOT_FOUND',

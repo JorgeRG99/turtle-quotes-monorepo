@@ -5,6 +5,21 @@ import { ErrorCode, SALT_ROUNDS } from '../config';
 import { CustomError } from '../utils/classes/CustomError';
 
 export class AuthModel {
+  static async sessionCheck({ token }) {
+    const query = util.promisify(connection.query).bind(connection);
+    const user = await query('SELECT * FROM users WHERE token = ?', [token]);
+
+    if (user.length === 0)
+      throw new CustomError('User not found', ErrorCode.NotFound);
+
+    return {
+      user: {
+        username: user[0].username,
+        email: user[0].email,
+      },
+    };
+  }
+
   static async register({ username, email, password }) {
     const query = util.promisify(connection.query).bind(connection);
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
@@ -44,7 +59,13 @@ export class AuthModel {
       [email]
     );
 
-    return newToken;
+    return {
+      token: newToken,
+      user: {
+        username: user[0].username,
+        email: user[0].email,
+      },
+    };
   }
 
   static async logout({ token }) {

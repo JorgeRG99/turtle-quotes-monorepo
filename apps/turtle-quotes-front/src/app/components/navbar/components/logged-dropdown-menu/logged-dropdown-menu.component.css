@@ -1,7 +1,4 @@
 .logged-dropdown-menu {
-    display: flex;
-    align-items: center;
-    gap: 1em;
     position: relative;
 
     & p {
@@ -21,6 +18,7 @@
 
     &:active {
         transform: scale(0.95);
+
         ::ng-deep app-user-logo svg {
             fill: var(--tertiary-color);
         }
@@ -30,12 +28,13 @@
 .dropdown-menu {
     position: absolute;
     top: 125%;
+    left: -7em;
     background-color: #232c40;
-    padding: .7em 0;
-    width: 102%;
+    padding: .8em 0;
+    width: 10em;
     display: flex;
     flex-direction: column;
-    gap: .3em;
+    gap: .5em;
     z-index: 3;
     border-radius: .3em;
 
@@ -43,7 +42,7 @@
         content: '';
         position: absolute;
         top: 0;
-        left: 84%;
+        left: 83%;
         width: 0;
         height: 0;
         border: 0.563em solid transparent;
@@ -52,15 +51,17 @@
         margin-left: -0.562em;
         margin-top: -0.562em;
     }
-
     & button {
         border: none;
         background-color: transparent;
         font-size: .85em;
         cursor: pointer;
         width: 100%;
-        padding: .5em 0;
         color: var(--tertiary-color-light);
+        display: flex;
+        align-items: center;
+        gap: 1.5em;
+        padding: .7em 2em;
 
         &:hover {
             border-left: 3px solid var(--tertiary-color);

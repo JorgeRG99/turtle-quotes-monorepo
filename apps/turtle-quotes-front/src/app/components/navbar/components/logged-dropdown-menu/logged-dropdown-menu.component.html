@@ -1,10 +1,9 @@
 <div class="logged-dropdown-menu">
-    <p>{{ (sessionUserData$ | async)?.username}}</p>
     <button class="user-button" (click)="toggleOpenDropdownMenu()"><app-user-logo /></button>
 
-
     <dialog *ngIf="isDropdownOpen$ | async" class="dropdown-menu">
-        <button>Profile</button>
-        <button class="logout" (click)="logout()">Log Out</button>
+        <button (click)="onNavigateAndClose(routes.PROFILE)"><app-user-icon />Profile</button>
+        <button><app-settings-icon />Settings</button>
+        <button class="logout" (click)="logout()"><app-logout-icon/>Log Out</button>
     </dialog>
 </div>
