@@ -1,5 +1,5 @@
 <div class="logged-dropdown-menu">
-    <button class="user-button" (click)="toggleOpenDropdownMenu()"><app-user-logo /></button>
+    <button #openDialogButton class="user-button" tabindex="-1" (click)="toggleOpenDropdownMenu()"><app-user-logo /></button>
 
     <dialog *ngIf="isDropdownOpen$ | async" class="dropdown-menu">
         <button (click)="onNavigateAndClose(routes.PROFILE)"><app-user-icon />Profile</button>

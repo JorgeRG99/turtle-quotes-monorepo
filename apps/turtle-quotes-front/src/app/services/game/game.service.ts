@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { ApiResultObject, StatsObject } from '../../models';
 import { SubjectManager } from '../../utils/subject-manager.utility';
 import { StatsService } from '../stats/stats.service';
 import { APP_ROUTES } from '../../../config';
+import { DropdownService } from '../dropdown/dropdown.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,7 @@ export class GameService {
   private keydownSubscription: Subscription;
   private $isGameStartedSubject = new SubjectManager(false);
   private $isGameEndedSubject = new SubjectManager(false);
+  dropdonServiceManager = inject(DropdownService).dropdownDisplayManager
   private totalErrors = 0;
   private totalSuccesses = 0;
   private totalCharsTyped = 0;
@@ -77,6 +79,7 @@ export class GameService {
 
   startOnEnter(event: KeyboardEvent) {
     if (event.key === 'Enter') {
+      this.dropdonServiceManager.setSubject(false)
       this.closeStartDialog();
     }
   }

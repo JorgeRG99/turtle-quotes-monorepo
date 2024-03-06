@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StatsComponent } from './components/stats/stats.component';
 import { GameComponent } from './components/game/game.component';
 import { APP_ROUTES } from '../config';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -15,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: APP_ROUTES.PROFILE,
-    component: StatsComponent,
+    component: ProfileComponent,
   },
   {
     path: '**',
