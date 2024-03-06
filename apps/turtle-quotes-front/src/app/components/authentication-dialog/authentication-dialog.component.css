@@ -108,7 +108,7 @@ form {
 }
 
 .validation-error {
-    color: rgb(224, 30, 30);
+    color: var(--error-color);
     font-size: .8em;
 }
 

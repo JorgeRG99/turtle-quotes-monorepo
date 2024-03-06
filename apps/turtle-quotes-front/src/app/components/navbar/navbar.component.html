@@ -6,7 +6,7 @@
         <h1>Turtle Quotes</h1>
     </div>
 
-    <ul *ngIf="(isAuthenticated$ | async) === false else userProfile" class="nav-links">
+    <ul *ngIf="(isAuthenticated$ | async) === false else dropdownMenu" class="nav-links">
         <li>
             <button class="active" (click)="openAuthDialog('login')">Login</button>
         </li>
@@ -15,7 +15,7 @@
         </li>
     </ul>
 
-    <ng-template #userProfile>
-        <button (click)="logout()">User</button>
+    <ng-template #dropdownMenu>
+        <app-logged-dropdown-menu />
     </ng-template>
 </nav>

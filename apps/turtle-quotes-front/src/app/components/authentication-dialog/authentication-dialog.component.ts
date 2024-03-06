@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogService } from '../../services/dialog/dialog.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import {
   AbstractControl,
   FormBuilder,
@@ -26,6 +26,7 @@ export class AuthenticationDialogComponent implements OnInit {
   $selectedForm!: Observable<string>;
   authForm!: FormGroup;
   isLoadingResponse$!: Observable<boolean>;
+  destroySubmitSuscription$ = new Subject<boolean>();
 
   ngOnInit() {
     this.authForm = this.initForm();
@@ -35,6 +36,8 @@ export class AuthenticationDialogComponent implements OnInit {
 
   closeAuthDialog(e?: Event) {
     e?.preventDefault();
+    this.destroySubmitSuscription$.next(true);
+    this.destroySubmitSuscription$.complete();
     this.dialogService.$dialogSubject.setSubject(false);
   }
 
@@ -79,14 +82,16 @@ export class AuthenticationDialogComponent implements OnInit {
       password: formValue.password ?? '',
     };
 
-    action(credentials).subscribe({
-      next: () => {
-        this.closeAuthDialog();
-      },
-      complete: () => {
-        this.authenticationService.setItsLoadingResponse(false);
-      },
-    });
+    action(credentials)
+      .pipe(takeUntil(this.destroySubmitSuscription$))
+      .subscribe({
+        next: () => {
+          this.closeAuthDialog();
+        },
+        complete: () => {
+          this.authenticationService.setItsLoadingResponse(false);
+        },
+      });
   }
 
   fieldErrorMessage(field: AbstractControl | null): string {

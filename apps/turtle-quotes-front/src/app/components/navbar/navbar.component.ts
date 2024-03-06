@@ -5,11 +5,12 @@ import { APP_ROUTES } from '../../../config';
 import { DialogService } from '../../services/dialog/dialog.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { CommonModule } from '@angular/common';
+import { LoggedDropdownMenuComponent } from './components/logged-dropdown-menu/logged-dropdown-menu.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [PageLogoComponent, RouterLink, CommonModule],
+  imports: [PageLogoComponent, RouterLink, CommonModule, LoggedDropdownMenuComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -21,9 +22,5 @@ export class NavbarComponent {
 
   openAuthDialog(selectedForm: string) {
     this.dialogService.openDialog(selectedForm);
-  }
-
-  logout() {
-    this.authService.logout()
   }
 }
