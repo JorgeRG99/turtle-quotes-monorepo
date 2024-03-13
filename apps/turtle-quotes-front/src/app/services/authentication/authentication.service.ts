@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   LOGIN_ENDPOINT,
   LOGOUT_ENDPOINT,
@@ -20,12 +20,16 @@ export class AuthenticationService {
   private isAuthenticated = new BehaviorSubject<boolean>(false);
   private sessionData = new BehaviorSubject<SessionData | undefined>(undefined);
   private isLoadingResponseManager = new SubjectManager(false);
-  private httpClient = inject(HttpClient);
   private static readonly TOKEN_KEY = 'TurtleAuthToken';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+    private httpClient: HttpClient
+  ) {
     if (isPlatformBrowser(this.platformId)) {
-      const token = window.localStorage.getItem(AuthenticationService.TOKEN_KEY);
+      const token = window.localStorage.getItem(
+        AuthenticationService.TOKEN_KEY
+      );
       if (token) {
         this.setAuthToken(token);
         this.initSession(token);
@@ -50,7 +54,8 @@ export class AuthenticationService {
           }
           return response;
         })
-      ).subscribe();
+      )
+      .subscribe();
   }
 
   register(userData: User): Observable<TurtleApiResponse> {
@@ -112,6 +117,10 @@ export class AuthenticationService {
     return this.authToken.asObservable();
   }
 
+  getAuthtokenValue(): string | undefined {
+    return this.authToken.getValue();
+  }
+
   getIsAuthenticated(): Observable<boolean> {
     return this.isAuthenticated.asObservable();
   }
@@ -122,6 +131,10 @@ export class AuthenticationService {
 
   getSessionData(): Observable<SessionData | undefined> {
     return this.sessionData.asObservable();
+  }
+
+  getUserId(): string | undefined {
+    return this.sessionData.getValue()?.id;
   }
 
   // ----------------- SETTERS -----------------

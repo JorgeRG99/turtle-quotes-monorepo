@@ -1,4 +1,5 @@
-import { User } from "./user"
+import { SessionData } from "./session-data"
+import { StatsApiResponse } from "./stast-api"
 
 export interface TurtleApiResponse {
     error?: string[] | {
@@ -8,7 +9,8 @@ export interface TurtleApiResponse {
     message?: string,
     data?: {
         token?: string,
-        user?: User
+        user?: SessionData,
+        stats?: StatsApiResponse[]
     }
   }
   

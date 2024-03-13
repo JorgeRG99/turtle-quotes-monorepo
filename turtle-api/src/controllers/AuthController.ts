@@ -1,7 +1,7 @@
 import { AuthModel } from '../models/AuthModel';
 import { validateUser } from '../schemas/User';
 
-export class TurtleAuthController {
+export class AuthController {
   static async sessionCheck(req, res, next) {
     try {
       const data = await AuthModel.sessionCheck({ token: req.headers.authorization.split(' ')[1]});

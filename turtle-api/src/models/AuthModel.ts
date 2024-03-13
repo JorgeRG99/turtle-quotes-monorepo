@@ -14,6 +14,7 @@ export class AuthModel {
 
     return {
       user: {
+        id: user[0].id,
         username: user[0].username,
         email: user[0].email,
       },
@@ -25,14 +26,16 @@ export class AuthModel {
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
     const newToken = crypto.randomUUID();
+    const id = crypto.randomUUID();
 
     await query(
-      `INSERT INTO users (id, username, email, password_hash, token) VALUES (UUID(), ?, ?, ?, ?)`,
-      [username, email, passwordHash, newToken]
+      `INSERT INTO users (id, username, email, password_hash, token) VALUES (?, ?, ?, ?, ?)`,
+      [id, username, email, passwordHash, newToken]
     );
 
     return {
       user: {
+        id,
         username,
         email,
       },
@@ -62,6 +65,7 @@ export class AuthModel {
     return {
       token: newToken,
       user: {
+        id: user[0].id,
         username: user[0].username,
         email: user[0].email,
       },

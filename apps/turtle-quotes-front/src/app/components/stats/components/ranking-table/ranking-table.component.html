@@ -1,0 +1,26 @@
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Rank</th>
+            <th>User</th>
+            <th>WPM</th>
+            <th>Total Time</th>
+            <th>Total Errors</th>
+            <th>Accuracy</th>
+            <th>Error Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let statRow of rankingStats$ | async  let isFirst = first">
+            <td><app-crown-icon *ngIf="isFirst" /></td>
+            <td>{{statRow.rank}}</td>
+            <td>{{statRow.username}}</td>
+            <td>{{statRow.wpm}}</td>
+            <td>{{statRow.totalTime}} seconds</td>
+            <td>{{statRow.totalErrors}}</td>
+            <td>{{statRow.accuracy}}%</td>
+            <td>{{statRow.errorRate}}%</td>
+        </tr>
+    </tbody>
+</table>

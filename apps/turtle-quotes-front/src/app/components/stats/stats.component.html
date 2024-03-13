@@ -1,6 +1,8 @@
 <section>
     <div><span>{{ stats.wpm | number:'1.0-0' }}</span> WPM</div>
-    <div class="graph"></div>
+    <div class="table">
+        <app-ranking-table />
+    </div>
     <div><span>{{stats.errorRate | number:'1.0-0' }}%</span> Error Rate</div>
     <div><span>{{stats.totalChars | number:'1.0-0' }}</span> Total Characters</div>
     <div class="reload-container"><button (click)="playAgain()" class="reload"><app-reload /></button><button (click)="playAgain()">Play Again</button></div>

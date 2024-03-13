@@ -4,11 +4,12 @@ import { StatsObject } from '../../models';
 import { Subscription} from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ReloadComponent } from './components/reload/reload.component';
+import { RankingTableComponent } from './components/ranking-table/ranking-table.component';
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [CommonModule, ReloadComponent],
+  imports: [CommonModule, ReloadComponent, RankingTableComponent],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss',
 })

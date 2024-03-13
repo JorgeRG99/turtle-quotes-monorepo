@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -25,31 +25,21 @@ export class GameService {
   private currentChar = new BehaviorSubject('');
   private isCurrentCharWrong = new BehaviorSubject(false);
   private keydown = fromEvent<KeyboardEvent>(document, 'keydown');
-  private keydownSubscription: Subscription;
+  private keydownSubscription!: Subscription;
   private $isGameStartedSubject = new SubjectManager(false);
   private $isGameEndedSubject = new SubjectManager(false);
-  dropdonServiceManager = inject(DropdownService).dropdownDisplayManager
   private totalErrors = 0;
   private totalSuccesses = 0;
   private totalCharsTyped = 0;
-  private stats = new StatsService();
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private dropdownService: DropdownService,
+    private statsService: StatsService
+  ) {
     this.requestQuote();
-
-    this.keydownSubscription = this.keydown.subscribe((e) => {
-      if (!this.$isGameStartedSubject.getSubjectValue()) {
-        this.startOnEnter(e);
-        return;
-      } else {
-        if (e.key === this.currentChar.getValue()) this.handleCorrectInput();
-        else if (e.key !== 'CapsLock' && e.key !== 'Shift') {
-          this.totalCharsTyped++;
-          this.totalErrors++;
-          this.setIsCurrentCharWrong(true);
-        }
-      }
-    });
+    this.setKeydownSubscription();  
   }
 
   // ----------------- METHODS -----------------
@@ -58,7 +48,7 @@ export class GameService {
       .get<ApiResultObject[]>(this.apiUrl)
       .pipe(map((result) => result[0].content))
       .subscribe((quoteContent) => {
-        this.stats.setQuoteData(quoteContent.split(' '), this.right);
+        this.statsService.setQuoteData(quoteContent.split(' '), this.right);
         this.setQuote(quoteContent.slice(1));
         this.setCurrentChar(quoteContent[0]);
       });
@@ -79,34 +69,32 @@ export class GameService {
 
   startOnEnter(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      this.dropdonServiceManager.setSubject(false)
+      this.dropdownService.dropdownDisplayManager.setSubject(false);
       this.closeStartDialog();
     }
   }
 
   closeStartDialog() {
     this.$isGameStartedSubject.setSubject(true);
-    this.stats.start();
+    this.statsService.start();
   }
 
   finishGame() {
-    this.stats.generateStats(
+    this.statsService.generateStats(
       this.totalCharsTyped,
       this.totalErrors,
       this.totalSuccesses
     );
     this.keydownSubscription.unsubscribe();
     this.$isGameEndedSubject.setSubject(true);
-    this.stats.stop();
+    this.statsService.stop();
     this.router.navigate([APP_ROUTES.STATS]);
   }
 
   resetGame() {
-    this.stats = new StatsService();
     this.totalErrors = 0;
     this.totalSuccesses = 0;
     this.totalCharsTyped = 0;
-    this.apiUrl = environment.apiBaseUrl;
     this.quote = new BehaviorSubject('');
     this.right = new BehaviorSubject('');
     this.currentChar = new BehaviorSubject('');
@@ -116,20 +104,10 @@ export class GameService {
     this.$isGameEndedSubject = new SubjectManager(false);
 
     this.requestQuote();
+    this.statsService.stop();
+    this.setKeydownSubscription();
 
-    this.keydownSubscription = this.keydown.subscribe((e) => {
-      if (!this.$isGameStartedSubject.getSubjectValue()) {
-        this.startOnEnter(e);
-        return;
-      } else {
-        if (e.key === this.currentChar.getValue()) this.handleCorrectInput();
-        else if (e.key !== 'CapsLock' && e.key !== 'Shift') {
-          this.totalCharsTyped++;
-          this.totalErrors++;
-          this.setIsCurrentCharWrong(true);
-        }
-      }
-    });
+    
 
     this.router.navigate([APP_ROUTES.HOME]);
   }
@@ -156,19 +134,19 @@ export class GameService {
   }
 
   getStatsTimer(): Observable<number> {
-    return this.stats.getTimer();
+    return this.statsService.getTimer();
   }
 
   getTotalWords(): Observable<number> {
-    return this.stats.getTotalWords();
+    return this.statsService.getTotalWords();
   }
 
   getCompletedWords(): Observable<number> {
-    return this.stats.getCompletedWords();
+    return this.statsService.getCompletedWords();
   }
 
   getStatsResult(): Observable<StatsObject> {
-    return this.stats.getResults();
+    return this.statsService.getResults();
   }
 
   // ----------------- SETTERS -----------------
@@ -186,5 +164,21 @@ export class GameService {
 
   setIsCurrentCharWrong(value: boolean): void {
     this.isCurrentCharWrong.next(value);
+  }
+
+  setKeydownSubscription(): void {
+    this.keydownSubscription = this.keydown.subscribe((e) => {
+      if (!this.$isGameStartedSubject.getSubjectValue()) {
+        this.startOnEnter(e);
+        return;
+      } else {
+        if (e.key === this.currentChar.getValue()) this.handleCorrectInput();
+        else if (e.key !== 'CapsLock' && e.key !== 'Shift') {
+          this.totalCharsTyped++;
+          this.totalErrors++;
+          this.setIsCurrentCharWrong(true);
+        }
+      }
+    });
   }
 }

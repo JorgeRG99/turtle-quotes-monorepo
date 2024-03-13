@@ -4,6 +4,7 @@ export const LOGIN_ROUTE = '/login';
 export const REGISTER_ROUTE = '/register';
 export const LOGOUT_ROUTE = '/logout';
 export const SESSION_CHECK_ROUTE = '/session';
+export const RANK_ROUND = '/rankRound';
 
 export enum ErrorCode {
     NotFound = 'NOT_FOUND',
