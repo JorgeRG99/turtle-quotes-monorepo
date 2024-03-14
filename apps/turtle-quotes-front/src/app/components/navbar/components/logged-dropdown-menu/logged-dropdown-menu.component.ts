@@ -34,6 +34,7 @@ export class LoggedDropdownMenuComponent {
 
   logout() {
     this.authService.logout();
+    this.toggleOpenDropdownMenu();
   }
 
   toggleOpenDropdownMenu() {

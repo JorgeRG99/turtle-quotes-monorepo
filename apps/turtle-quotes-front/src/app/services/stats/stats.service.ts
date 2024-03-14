@@ -16,6 +16,7 @@ export class StatsService {
   private completedWords$ = new BehaviorSubject<number>(0);
   private totalWords: string[] = [];
   private rightQuote$!: Observable<string>;
+  private rankingApiResult = new BehaviorSubject<StatsApiResponse[]>([]);
   private resultStats = new BehaviorSubject<StatsObject>({
     wpm: 0,
     accuracy: 0,
@@ -24,9 +25,7 @@ export class StatsService {
     totalChars: 0,
     errorRate: 0,
   });
-  private rankingApiResult = new BehaviorSubject<StatsApiResponse[]>([]);
   
-
   constructor(
     private authenticationService: AuthenticationService,
     private httpClient: HttpClient

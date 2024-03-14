@@ -28,6 +28,7 @@ button {
     background-color: transparent;
     cursor: pointer;
     font-size: 1.2em;
+    font-weight: 600;
 }
 
 button:hover ~ .separator {
@@ -36,5 +37,6 @@ button:hover ~ .separator {
 
 p {
     color: var(--tertiary-color-light);
-    font-size: .7em;
+    font-size: .9em;
+    font-weight: 400;
 }

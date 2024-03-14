@@ -55,14 +55,16 @@
     & button {
         border: none;
         background-color: transparent;
-        font-size: .85em;
+        font-size: 1em;
+        font-weight: 600;
         cursor: pointer;
         width: calc(100% - 4px);
         color: var(--tertiary-color-light);
         display: flex;
         align-items: center;
         gap: 1.5em;
-        padding: .7em 2em;
+        padding: .7em 1.7em;
+
 
         &:hover {
             box-shadow: -4px 0px 0px 0px var(--tertiary-color);

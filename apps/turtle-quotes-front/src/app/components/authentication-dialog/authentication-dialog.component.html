@@ -25,7 +25,7 @@
             <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
                 <ng-container *ngIf="($selectedForm | async) === 'register'">
                     <label for="username">Username</label>
-                    <input type="text" name="username" placeholder="Username" autocomplete="username"
+                    <input type="text" id="username" placeholder="Username" autocomplete="username"
                         formControlName="username" />
                     <p *ngIf="fieldErrorMessage(authForm.get('username'))" class="validation-error">
                         {{ fieldErrorMessage(authForm.get('username')) }}
@@ -33,13 +33,13 @@
                 </ng-container>
 
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Email" autocomplete="email" formControlName="email" />
+                <input type="email" id="email" placeholder="Email" autocomplete="email" formControlName="email" />
                 <p *ngIf="fieldErrorMessage(authForm.get('email'))" class="validation-error">
                     {{ fieldErrorMessage(authForm.get('email')) }}
                 </p>
 
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="Password" formControlName="password" />
+                <input type="password" id="password" placeholder="Password" formControlName="password" />
                 <p *ngIf="fieldErrorMessage(authForm.get('password'))" class="validation-error">
                     {{ fieldErrorMessage(authForm.get('password')) }}
                 </p>

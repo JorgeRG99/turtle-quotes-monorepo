@@ -1,11 +1,19 @@
-p {
+@font-face {
+    font-family: 'Cascadia Code';
+    src: url('../../../../../assets/fonts/CascadiaMono.woff2') format('woff2');
+    font-style: normal;
+}
+
+.type-quote {
     font-size: 1.4em;
     line-height: 2em;
     text-align: justify;
+    font-family: 'Cascadia Code';
 }
 
 span {
     word-wrap: break-word;
+    font-family: 'Cascadia Code';
 }
 
 #current-character {
